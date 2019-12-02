@@ -1,0 +1,29 @@
+#!/bin/bash
+
+usage() {
+  printf "pkg - install package and update init package-list\n\n"
+  printf "usage: pkg package-name...\n"
+}
+
+if [[ $# -lt 1 ]]; then
+  usage
+  exit 1
+fi
+
+export DEBIAN_FRONTEND=noninteractive
+
+PKG_LIST="$(dirname "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")")/package-list"
+if [ ! -f "$PKG_LIST" ]; then
+    printf "error: cannot locate package-list\n"
+    exit 1
+fi
+
+for p in "$@"; do
+    if sudo apt-get install -y "$p"; then
+        echo "$p" >>"$PKG_LIST"
+    fi
+done
+
+TMP=$(mktemp)
+sort -u "$PKG_LIST" >"$TMP"
+mv "$TMP" "$PKG_LIST"

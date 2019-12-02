@@ -1,0 +1,17 @@
+build-essential
+cmake
+curl
+git
+golang-go
+google-perftools
+htop
+neovim
+ninja-build
+pkg-config
+python3
+python3-pip
+scrot
+shellcheck
+ssh
+sxiv
+tmux

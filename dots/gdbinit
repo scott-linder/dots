@@ -1,0 +1,4 @@
+set history save on
+layout src
+focus cmd
+set follow-fork-mode child

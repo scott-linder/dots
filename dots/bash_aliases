@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# don't put duplicate lines or lines starting with space in the history
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# set history length
+HISTSIZE=1000000
+HISTFILESIZE=2000000
+
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+GIT_PS1_SHOWCOLORHINTS=1
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w$(__git_ps1 '\\[\\033[00m\\]:\\[\\033[1\\\;36m\\]%s')\[\033[00m\]$ '
+
+export EDITOR=nvim
+export GIT_EDITOR=$EDITOR
+export SVN_EDITOR=$EDITOR
+
+alias tmux='tmux -2'
+alias less='less -R'
+
+v() {
+  nvim "$@"
+}
+f() {
+  fd "$@"
+}
+c() {
+  bat "$@"
+}
+g() {
+  git "$@"
+}
+if [ -f /usr/share/bash-completion/completions/git ]; then
+  . /usr/share/bash-completion/completions/git
+  __git_complete g _git
+fi
