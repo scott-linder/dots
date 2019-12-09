@@ -48,6 +48,8 @@ link dots/tmux.conf ~/.tmux.conf
 link dots/vimrc ~/.vimrc
 link dots/vimrc ~/.config/nvim/init.vim
 
+dconf load / <"$INIT_DIR/dots/dconf.conf"
+
 for b in "$INIT_DIR"/bin/*; do
   b=$(basename "$b")
   link bin/"$b" ~/bin/"$b"
