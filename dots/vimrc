@@ -111,11 +111,10 @@ au FileType r noremap <buffer> <leader>r :!clear && R --vanilla <% \| less<cr>
 au FileType r noremap <buffer> <leader>p :!evince Rplots.pdf >/dev/null 2>&1 &<cr>
 
 " Rust
-au FileType rust setl keywordprg=uzbl-rust-std
-au FileType rust noremap <buffer> <leader>r :!clear && cargo run<cr>
-au FileType rust noremap <buffer> <leader>t :!clear && cargo test<cr>
-au FileType rust noremap <buffer> <leader>b :!clear && cargo build<cr>
-au FileType rust noremap <buffer> <leader>c :!clear && cargo clean<cr>
+au FileType rust noremap <buffer> <leader>r :tabedit<cr>:terminal cargo run<cr>
+au FileType rust noremap <buffer> <leader>t :tabedit<cr>:terminal cargo test<cr>
+au FileType rust noremap <buffer> <leader>b :tabedit<cr>:terminal cargo build<cr>
+au FileType rust noremap <buffer> <leader>c :tabedit<cr>:terminal cargo clean<cr>
 
 " VimOutliner
 au FileType votl set tabstop=2
