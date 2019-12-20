@@ -22,8 +22,17 @@ alias tmux='tmux -2'
 alias less='less -R'
 
 v() {
+  if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    printf 'unset NVIM_LISTEN_ADDRESS and try again\n' >&2
+    return 1
+  fi
   nvim "$@"
 }
+alias vs='nvr -o'
+alias vv='nvr -O'
+alias vt='nvr -p'
+alias vd='nvr -d'
+alias vp='nvr -l'
 f() {
   fd "$@"
 }

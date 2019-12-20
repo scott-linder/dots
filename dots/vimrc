@@ -6,7 +6,8 @@ Plug 'antiagainst/vim-tablegen'
 Plug 'dag/vim-fish'
 Plug 'embear/vim-localvimrc'
 Plug 'gerw/vim-latex-suite'
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'mattn/emmet-vim'
 Plug 'neomake/neomake'
 Plug 'ntpeters/vim-better-whitespace'
@@ -125,12 +126,17 @@ au FileType votl set noexpandtab
 "au FileType c,cpp nnoremap <buffer><Leader>f :<C-u>ClangFormat<CR>
 au FileType c,cpp vnoremap <buffer><Leader>f :ClangFormat<CR>
 
-" CtrlP
-if executable('rg')
-  set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
-endif
+" FZF
+" Enable preview window in :Files
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+" Enable preview window in :Rg
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+nnoremap <C-o> :Buffers<cr>
+nnoremap <C-p> :Files<cr>
 
 " NeoMake
 call neomake#configure#automake('w')
@@ -165,3 +171,6 @@ au TermOpen * setlocal nonumber norelativenumber
 :inoremap <C-A-l> <C-\><C-N> :tabnext<CR>
 :nnoremap <C-A-h> :tabprevious<CR>
 :nnoremap <C-A-l> :tabnext<CR>
+
+let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+autocmd FileType gitcommit set bufhidden=delete
