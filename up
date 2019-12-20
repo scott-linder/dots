@@ -28,9 +28,9 @@ xargs sudo apt-get install -y <"$INIT_DIR/package-list"
 
 mkdir -p ~/bin
 
-deb fd https://github.com/sharkdp/fd/releases/download/v7.1.0/fd-musl_7.1.0_amd64.deb
-deb rg https://github.com/BurntSushi/ripgrep/releases/download/0.9.0/ripgrep_0.9.0_amd64.deb
-deb bat https://github.com/sharkdp/bat/releases/download/v0.6.0/bat_0.6.0_amd64.deb
+deb fd https://github.com/sharkdp/fd/releases/download/v7.4.0/fd-musl_7.4.0_amd64.deb
+deb rg https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
+deb bat https://github.com/sharkdp/bat/releases/download/v0.12.1/bat_0.12.1_amd64.deb
 
 if ! command -v docker >/dev/null; then
   curl -fsSL get.docker.com | sudo sh
