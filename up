@@ -63,4 +63,4 @@ if [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
   nvim -es -c :PlugInstall -c qa
 fi
 
-sudo usermod -a -G video "$USER"
+sudo usermod -a -G video,docker "$USER"
