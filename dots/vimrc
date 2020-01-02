@@ -25,9 +25,9 @@ call plug#end()
 "" VIM
 
 " Looks
+set t_Co=256
 colorscheme molokai
 set fillchars=vert:│,fold:─,diff:─
-set t_Co=256
 set nohlsearch
 
 " Lines
@@ -144,11 +144,11 @@ call neomake#configure#automake('w')
 " localvimrc
 let g:localvimrc_persistent = 2
 
-" exit terminal insert mode
-tnoremap <A-e> <C-\><C-n>
-
-" terminal specific options
+" terminal
 au TermOpen * setlocal nonumber norelativenumber
+let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+au FileType gitcommit set bufhidden=delete
+tnoremap <A-e> <C-\><C-n>
 
 " alt+{hjkl} to navigate windows
 :tnoremap <A-h> <C-\><C-N><C-w>h
@@ -171,6 +171,3 @@ au TermOpen * setlocal nonumber norelativenumber
 :inoremap <C-A-l> <C-\><C-N> :tabnext<CR>
 :nnoremap <C-A-h> :tabprevious<CR>
 :nnoremap <C-A-l> :tabnext<CR>
-
-let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-autocmd FileType gitcommit set bufhidden=delete
