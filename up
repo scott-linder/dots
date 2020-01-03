@@ -25,7 +25,10 @@ deb() {
 }
 
 xargs sudo apt-get install -y <"$INIT_DIR/package-list"
-xargs sudo snap install <"$INIT_DIR/snap-list"
+# Can't figure out the snap(1) commandline
+while read -r snap; do
+  sudo snap install "$snap"
+done <"$INIT_DIR/snap-list"
 sudo snap refresh
 
 pip3 install --user neovim-remote
