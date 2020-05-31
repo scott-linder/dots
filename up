@@ -24,20 +24,20 @@ deb() {
   fi
 }
 
-xargs sudo apt-get install -y <"$INIT_DIR/package-list"
+xargs sudo apt-get install -qqy <"$INIT_DIR/package-list"
 # Can't figure out the snap(1) commandline
 while read -r snap; do
   sudo snap install "$snap"
 done <"$INIT_DIR/snap-list"
 sudo snap refresh
 
-pip3 install --user neovim-remote
+pip3 install -q --user neovim-remote
 
 mkdir -p ~/bin
 
 deb fd https://github.com/sharkdp/fd/releases/download/v7.4.0/fd-musl_7.4.0_amd64.deb
 deb rg https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
-deb bat https://github.com/sharkdp/bat/releases/download/v0.12.1/bat_0.12.1_amd64.deb
+deb bat https://github.com/sharkdp/bat/releases/download/v0.15.4/bat_0.15.4_amd64.deb
 
 if ! command -v docker >/dev/null; then
   curl -fsSL get.docker.com | sudo sh
@@ -48,12 +48,14 @@ if ! command -v cargo >/dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 fi
 
+mkdir -p ~/.config/{nvim,i3}
 link dots/bash_aliases ~/.bash_aliases
 link dots/gdbinit ~/.gdbinit
 link dots/gitconfig ~/.gitconfig
 link dots/tmux.conf ~/.tmux.conf
 link dots/vimrc ~/.vimrc
 link dots/vimrc ~/.config/nvim/init.vim
+link dots/i3 ~/.config/i3/config
 
 dconf load / <"$INIT_DIR/dots/dconf.conf"
 

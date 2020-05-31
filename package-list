@@ -6,6 +6,8 @@ git
 golang-go
 google-perftools
 htop
+i3-wm
+libncursesw5-dev
 neovim
 ninja-build
 pkg-config
@@ -16,5 +18,7 @@ scrot
 shellcheck
 sqlite3
 ssh
+suckless-tools
 sxiv
 tmux
+xss-lock
