@@ -4,11 +4,13 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'antiagainst/vim-tablegen'
 Plug 'dag/vim-fish'
+Plug 'elixir-editors/vim-elixir'
 Plug 'embear/vim-localvimrc'
 Plug 'gerw/vim-latex-suite'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mattn/emmet-vim'
+Plug 'mhinz/vim-mix-format'
 Plug 'neomake/neomake'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -171,3 +173,6 @@ tnoremap <A-e> <C-\><C-n>
 :inoremap <C-A-l> <C-\><C-N> :tabnext<CR>
 :nnoremap <C-A-h> :tabprevious<CR>
 :nnoremap <C-A-l> :tabnext<CR>
+
+" elixir
+au FileType elixir nnoremap <Leader>f :MixFormat<CR>
