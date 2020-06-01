@@ -72,9 +72,12 @@ endif
 set undodir=~/.vim/undo//
 set undofile
 
-" Doxygen comments
-set comments-=://
-set comments+=:///,://
+" Pick <C-j> as a consistent way to return to normal mode from anywhere. This
+" doesn't seem to conflict with any control sequences in terminal emulators
+" or common utilities, and it is on the home row.
+inoremap <C-j> <C-\><C-n>
+tnoremap <C-j> <C-\><C-n>
+cnoremap <C-j> <C-\><C-n>
 
 " Terminal
 :tnoremap <Esc> <C-\><C-n>
