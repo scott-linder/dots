@@ -1,7 +1,0 @@
-[user]
-	email = scott@scottlinder.com
-	name = Scott Linder
-[color]
-	ui = auto
-[alias]
-	co = checkout

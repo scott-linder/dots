@@ -18,21 +18,45 @@ export EDITOR=nvim
 export SVN_EDITOR=$EDITOR
 [ -z "$GIT_EDITOR" ] && export GIT_EDITOR=$EDITOR
 
-alias tmux='tmux -2'
-alias less='less -R'
-
-v() {
-  if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-    printf 'unset NVIM_LISTEN_ADDRESS and try again\n' >&2
-    return 1
-  fi
-  nvim "$@"
+tmux() {
+  tmux -2 "$@"
 }
-alias vs='nvr -o'
-alias vv='nvr -O'
-alias vt='nvr -p'
-alias vd='nvr -d'
-alias vp='nvr -l'
+less() {
+  less -R "$@"
+}
+bell() {
+  echo -e '\a'
+}
+v() {
+  if [ $# -gt 0 ]; then
+    if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+      nvr --nostart "$@"
+    else
+      nvim "$@"
+    fi
+  else
+    if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+      printf "unset NVIM_LISTEN_ADDRESS and try again\n" >&2
+      return 1
+    fi
+    nvim +term +starti
+  fi
+}
+sp() {
+  nvr -o "$@"
+}
+vsp() {
+  nvr -O "$@"
+}
+tabe() {
+  nvr -p "$@"
+}
+vd() {
+  nvr -d "$@"
+}
+vp() {
+  nvr -l "$@"
+}
 f() {
   fd "$@"
 }

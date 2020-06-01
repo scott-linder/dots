@@ -1,0 +1,11 @@
+[user]
+	email = scott@scottlinder.com
+	name = Scott Linder
+[color]
+	ui = auto
+[alias]
+	co = checkout
+[core]
+    pager = delta --file-color white --hunk-color white --dark
+[interactive]
+    diffFilter = delta --file-color white --hunk-color white --dark --color-only
