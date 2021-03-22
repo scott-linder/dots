@@ -51,6 +51,8 @@ for config in config/*; do
 done
 
 dconf load / <dconf.conf
+gsettings set org.mate.mate-menu hot-key ''
+gsettings set com.solus-project.brisk-menu hot-key ''
 
 mkdir -p ~/bin
 for bin in bin/*; do

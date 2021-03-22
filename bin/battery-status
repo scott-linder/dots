@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if acpi -a | grep -q on-line; then
+    printf '🔌'
+else
+    printf '🔋'
+fi
+acpi -b | sed 's/.*\b\([0-9]\+\%\).*/\1/' | tr '\n' ' '
