@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo tarsnap -c -f "$(uname -n)-$(date +%Y-%m-%d_%H-%M-%S)" \
+    "$HOME"/{Documents,.ssh}
