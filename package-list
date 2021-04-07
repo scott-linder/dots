@@ -1,3 +1,4 @@
+acpi
 build-essential
 clang-format
 cmake
@@ -7,6 +8,7 @@ golang-go
 google-perftools
 htop
 i3-wm
+jq
 libncursesw5-dev
 neovim
 ninja-build

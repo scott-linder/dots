@@ -6,31 +6,22 @@ cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 
 export DEBIAN_FRONTEND=noninteractive
 
-deb() {
-  local CMD="$1"; shift
-  local URL="$1"; shift
-  if ! hash "$CMD" 2>/dev/null; then
-    local TMP
-    TMP="$(mktemp)"
-    curl -fLo "$TMP" "$URL"
-    sudo dpkg -i "$TMP"
-    rm "$TMP"
-  fi
-}
+TMP="$(mktemp)"
+trap 'rm -rf -- "$TMP"' EXIT
 
+sudo apt-get update -qqy
 xargs sudo apt-get install -qqy <package-list
-# Can't figure out the snap(1) commandline
-while read -r snap; do
-  sudo snap install "$snap"
-done <snap-list
+sudo apt-get upgrade -qqy
+
+xargs -L1 sudo snap install <snap-list
 sudo snap refresh
 
 sudo -H pip3 install -q neovim-remote
 
-deb fd https://github.com/sharkdp/fd/releases/download/v7.4.0/fd-musl_7.4.0_amd64.deb
-deb rg https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
-deb bat https://github.com/sharkdp/bat/releases/download/v0.15.4/bat_0.15.4_amd64.deb
-deb delta https://github.com/dandavison/delta/releases/download/0.1.1/git-delta_0.1.1_amd64.deb
+while read -r url; do
+  curl -fsSLo "$TMP" "$url"
+  sudo dpkg -Ei "$TMP"
+done <deb-list
 
 if ! hash docker 2>/dev/null; then
   curl -fsSL get.docker.com | sudo sh
@@ -38,7 +29,7 @@ fi
 sudo systemctl restart docker
 
 if ! hash cargo 2>/dev/null; then
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  curl --proto '=https' --tlsv1.2 -fsSfL https://sh.rustup.rs | sh
 fi
 
 for config in config/*; do
@@ -62,7 +53,7 @@ ln -sf "$(readlink -f up)" ~/bin/up
 
 PLUG="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
 if [ ! -f "$PLUG" ]; then
-  curl -fLo "$PLUG" --create-dirs \
+  curl -fsSLo "$PLUG" --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   nvim -es -c :PlugInstall -c qa
 fi

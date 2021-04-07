@@ -1,0 +1,21 @@
+#!/bin/bash
+
+i3() {
+  i3-msg -t get_workspaces \
+    | jq -r '.[] | "\(if .focused then 1 else 0 end) \(.num)"' \
+    | awk 'BEGIN { split("➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓", white); \
+                   split("➀ ➁ ➂ ➃ ➄ ➅ ➆ ➇ ➈ ➉", black); } \
+         { if ($1) print white[$2]; else print black[$2]; }' \
+    | paste -sd' '
+}
+
+battery() {
+  acpi -a | grep -q on-line && printf '🔌' || printf '🔋'
+  acpi -b | sed 's/.*\b\([0-9]\+\%\).*/\1/' | paste -sd:
+}
+
+clock() {
+  date '+%F｜%H:%M'
+}
+
+printf '%s｜' "$(i3)" "$(battery)" "$(clock)"
